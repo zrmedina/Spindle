@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "501910056381",
+    "project_id": "spindle-ff56a",
+    "storage_bucket": "spindle-ff56a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501910056381:android:74e1bb9ce68840dd80f6d4",
+        "android_client_info": {
+          "package_name": "com.zoe.my_first_flutter_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501910056381-ca00go022uskhkpcd652aq5u2tev99ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_cxEHMN_pcUl_fk14zIIYbxavM20kQlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501910056381-ca00go022uskhkpcd652aq5u2tev99ac.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "501910056381-2jhilrrr0v0fkvtdiou5hc0bn0q3da1l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zome.Spindle"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501910056381:android:9a071ba22140ed8c80f6d4",
+        "android_client_info": {
+          "package_name": "com.zome.spindle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501910056381-ca00go022uskhkpcd652aq5u2tev99ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_cxEHMN_pcUl_fk14zIIYbxavM20kQlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501910056381-ca00go022uskhkpcd652aq5u2tev99ac.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "501910056381-2jhilrrr0v0fkvtdiou5hc0bn0q3da1l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zome.Spindle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
