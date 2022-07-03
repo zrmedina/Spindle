@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +48,7 @@ class _EditState extends State<EditPage> {
       FirebaseDatabase.instance.ref().child("${widget.userID?.uid}/receipts/${widget.receipt.id}").set(widget.receipt.toMap());
 
       Navigator.of(context)
-          .popUntil(ModalRoute.withName("/SavedPage"));
-
+            .popUntil(ModalRoute.withName("/SavedPage"));
     });
   }
 
@@ -115,6 +116,12 @@ class _EditState extends State<EditPage> {
                       labelText: "Charge"
                   ),
 
+                )
+            ),
+            Expanded(
+                child: Container(
+                  margin: EdgeInsets.all(20),
+                  child: Image.file(File(widget.receipt.image))
                 )
             )
         ]),

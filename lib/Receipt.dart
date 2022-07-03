@@ -1,11 +1,10 @@
-import 'package:image_picker/image_picker.dart';
 
 class Receipt {
   int id = new DateTime.now().millisecondsSinceEpoch;
   String name;
   String date;
   String charge;
-  XFile? image;
+  String image;
   String address;
 
   Receipt(this.name,this.address,this.date,this.charge,this.image);
@@ -16,6 +15,7 @@ class Receipt {
       'address': address,
       'date': date,
       'charge': charge,
+      "image": image,
     };
   }
 

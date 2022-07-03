@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -20,6 +21,7 @@ class SavedPage extends StatefulWidget {
 
 class _SavedPageState extends State<SavedPage> {
   List<Receipt> receipts = <Receipt>[];
+  User? user = FirebaseAuth.instance.currentUser;
 
   void initState() {
     super.initState();
@@ -31,13 +33,15 @@ class _SavedPageState extends State<SavedPage> {
   Future<void> getReceipts() async {
     User? user = FirebaseAuth.instance.currentUser;
     Map<String, dynamic>? data;
+    receipts.clear();
 
-    FirebaseDatabase.instance.ref("${user?.uid}/receipts").get()
-        .then((entity) {
-      data = jsonDecode(jsonEncode(entity.value));
+    DatabaseReference ref = FirebaseDatabase.instance.ref("${user?.uid}/receipts");
+    ref.onValue.listen((DatabaseEvent event) {
+      data = jsonDecode(jsonEncode(event.snapshot.value));
+      receipts.clear();
       data?.forEach((key, value) {
 
-        Receipt r = Receipt(value["name"], value["address"], value["date"], value["charge"], null);
+        Receipt r = Receipt(value["name"], value["address"], value["date"], value["charge"], value["image"]);
         r.setID(int.parse(key));
 
         receipts.add(r);
@@ -54,6 +58,12 @@ class _SavedPageState extends State<SavedPage> {
         MaterialPageRoute(builder: (context) => ScanPage(title: 'Scan', userID: FirebaseAuth.instance.currentUser )),
       );
     });
+    DatabaseReference ref =
+    FirebaseDatabase.instance.ref("${user?.uid}/receipts");
+    ref.onValue.listen((DatabaseEvent event) {
+      getReceipts();
+      print("heard");
+    });
   }
 
 
@@ -65,18 +75,57 @@ class _SavedPageState extends State<SavedPage> {
       ) ,
       body: Column(
         children: [
+          Container(
+            margin: EdgeInsets.only(top:20),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: Text(
+                          "Name",
+                        style: TextStyle(
+                          fontSize: 50,
+                          fontFamily: "BetterGrade",
+                          color: Colors.deepPurpleAccent
+                        ),
+                      ),
+                  ),
+                  Container(
+                    child: Text(
+                        "Date",
+                      style: TextStyle(
+                          fontSize: 50,
+                          fontFamily: "BetterGrade",
+                          color: Colors.deepPurpleAccent
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                        "Charge",
+                      style: TextStyle(
+                          fontSize: 50,
+                          fontFamily: "BetterGrade",
+                          color: Colors.deepPurpleAccent
+                      ),
+                    ),
+                  )
+                ]),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: receipts.length,
               itemBuilder: (_, int index){
               return ListTile(
                 onTap: (){
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      settings: RouteSettings(name: "/EditPage"),
-                      builder: (context) => EditPage(title: "Edit Receipt", receipt: receipts[index], userID: FirebaseAuth.instance.currentUser),
-                    ),
-                  );
+                  setState((){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        settings: RouteSettings(name: "/EditPage"),
+                        builder: (context) => EditPage(title: "Edit Receipt", receipt: receipts[index], userID: FirebaseAuth.instance.currentUser),
+                      ),
+                    );
+                  });
                  },
                 title: Container(
                   key: UniqueKey(),
@@ -86,10 +135,6 @@ class _SavedPageState extends State<SavedPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                  if(receipts[index].image != null)
-                      Container(
-                          child: Image.file(File(receipts[index].image!.path))
-                      ),
                       Text(
                         receipts[index].name
                       ),

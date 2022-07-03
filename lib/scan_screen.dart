@@ -73,7 +73,7 @@ class _ScanPageState extends State<ScanPage> {
         break;
       }
     }
-    Receipt newReceipt = Receipt(name,address,date,charge,imageFile);
+    Receipt newReceipt = Receipt(name,address,date,charge,imageFile!.path);
 
     setState(() {
 
